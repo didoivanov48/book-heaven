@@ -1,4 +1,4 @@
-package com.bookheaven.spring_boot_library;
+package com.bookheaven.springbootlibrary;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

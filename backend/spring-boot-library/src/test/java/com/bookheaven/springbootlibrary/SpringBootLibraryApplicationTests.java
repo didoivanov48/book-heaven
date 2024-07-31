@@ -1,4 +1,4 @@
-package com.bookheaven.spring_boot_library;
+package com.bookheaven.springbootlibrary;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
