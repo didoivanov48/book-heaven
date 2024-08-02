@@ -148,15 +148,26 @@ export const SearchBooksPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-3">
-                        <h5>Number of results: ({totalAmountOfBooks})</h5>
-                    </div>
-                    <p>
-                        {indexOfFirstBook + 1} to {lastItem} of {totalAmountOfBooks} items:
-                    </p>
-                    {books.map(book => (
-                        <SearchBook book={book} key={book.id} />
-                    ))}
+                    {totalAmountOfBooks > 0 ?
+                        <>
+                            <div className="mt-3">
+                                <h5>Number of results: ({totalAmountOfBooks})</h5>
+                            </div>
+                            <p>
+                                {indexOfFirstBook + 1} to {lastItem} of {totalAmountOfBooks} items:
+                            </p>
+                            {books.map(book => (
+                                <SearchBook book={book} key={book.id} />
+                            ))}
+                        </>
+                        :
+                        <div className="m-5">
+                            <h3>Can't find what you're looking for?</h3>
+                            <a className="btn main-color btn-md px-4 me-md-2 fw-bold text-white"
+                                type="button"
+                                href="#">Library Services</a>
+                        </div>
+                    }
                     {totalPages > 1 &&
                         <Pagination currentPage={currentPage} totalPages={totalPages} paginate={paginate} />
                     }
