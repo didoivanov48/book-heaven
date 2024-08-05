@@ -8,7 +8,7 @@ const OktaSignInWidget = ({onSuccess, onError}) => {
 
     useEffect(() => {
 
-        if(!widgetRef.current) {
+        if (!widgetRef.current) {
             return false;
         }
 
@@ -26,6 +26,6 @@ const OktaSignInWidget = ({onSuccess, onError}) => {
             <div ref={widgetRef}></div>
         </div>
     );
-}
+};
 
-export default OktaSignInWidget;
+export default OktaSignInWidget
