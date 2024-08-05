@@ -23,7 +23,7 @@ export const App = () => {
 
   const restoreOriginalUri = async (_oktaAuth: any, originalUri: any) => {
     history.replace(toRelativeUrl(originalUri || "/", window.location.origin));
-  }
+  };
 
   return (
     <div className="d-flex flex-column min-vh-100">
