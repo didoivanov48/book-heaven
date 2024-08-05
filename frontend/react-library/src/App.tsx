@@ -47,7 +47,7 @@ export const App = () => {
               () => <LoginWidget config={oktaConfig} />
             }
             />
-            <Route path="/login/calback" component={LoginCallback} />
+            <Route path="/login/callback" component={LoginCallback} />
           </Switch>
         </div>
         <Footer />
