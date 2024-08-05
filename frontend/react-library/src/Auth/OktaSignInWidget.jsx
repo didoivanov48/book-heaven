@@ -3,7 +3,7 @@ import OktaSignIn from "@okta/okta-signin-widget";
 import "@okta/okta-signin-widget/dist/css/okta-sign-in.min.css";
 import { oktaConfig } from "../lib/oktaConfig";
 
-const OktaSignInWidget = ({onSuccess, onError}) => {
+const OktaSignInWidget = ({ onSuccess, onError }) => {
     const widgetRef = useRef();
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const OktaSignInWidget = ({onSuccess, onError}) => {
     }, [onSuccess, onError]);
 
     return (
-        <div className="container mt-5 mb-5">
+        <div className='container mt-5 mb-5'>
             <div ref={widgetRef}></div>
         </div>
     );
