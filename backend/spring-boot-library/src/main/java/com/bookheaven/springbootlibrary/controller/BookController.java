@@ -18,6 +18,12 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    @GetMapping("/secure/ischeckedout/byuser")
+    public Boolean chekoutBookByUser(@RequestParam Long bookId){
+        String userEmail = "testuser@email.com";
+        return bookService.checkoutBookByUser(userEmail, bookId);
+    }
+
     @PutMapping("/secure/checkout")
     public Book chekcoutBook(@RequestParam Long bookId) throws Exception{
         String userEmail = "testuser@email.com";
