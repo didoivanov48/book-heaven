@@ -25,6 +25,10 @@ export const BookCheckoutPage = () => {
     const [currentLoansCount, setCurrentLoansCount] = useState(0);
     const [isLoadingCurrentLoansCount, setIsLoadingCurrentLoansCount] = useState(true);
 
+    /* Is book checked out ?*/
+    const [isCheckedOut, setIsCheckedOut] = useState(false);
+    const [isLoadingBookCheckedOut, setIsLoadingBookCheckedOut] = useState(true);
+
     const bookId = (window.location.pathname).split("/")[2];
 
     useEffect(() => {
@@ -105,9 +109,9 @@ export const BookCheckoutPage = () => {
         })
     }, []);
 
-    useEffect(()=> {
+    useEffect(() => {
         const fetchUserCurrentLoansCount = async () => {
-            if(authState && authState.isAuthenticated){
+            if (authState && authState.isAuthenticated) {
                 const url = `http://localhost:8080/api/books/secure/currentloans/count`;
                 const requestOptions = {
                     method: "GET",
@@ -117,7 +121,7 @@ export const BookCheckoutPage = () => {
                     }
                 };
                 const currentLoansCountResponse = await fetch(url, requestOptions);
-                if(!currentLoansCountResponse.ok){
+                if (!currentLoansCountResponse.ok) {
                     throw new Error("Something went wrong!");
                 }
                 const currentLoansCountResponseJson = await currentLoansCountResponse.json();
@@ -125,13 +129,41 @@ export const BookCheckoutPage = () => {
             }
             setIsLoadingCurrentLoansCount(false);
         }
-        fetchUserCurrentLoansCount().catch((error:any)=>{
+        fetchUserCurrentLoansCount().catch((error: any) => {
             setIsLoadingCurrentLoansCount(false);
             setHttpError(error.message);
         })
     }, [authState]);
 
-    if (isLoading || isLoadingReview || isLoadingCurrentLoansCount) {
+    useEffect(() => {
+        const fetchUserCheckedOutBook = async () => {
+            if(authState && authState.isAuthenticated){
+                const url = `http://localhost:8080/api/books/secure/ischeckedout/byuser?bookId=${bookId}`;
+                const requestOptions = {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${authState.accessToken?.accessToken}`,
+                        "Content-Type": "application/json"
+                    }
+                };
+                const bookCheckedOut = await fetch(url, requestOptions);
+
+                if(!bookCheckedOut.ok){
+                    throw new Error("Something went wrong!")
+                }
+
+                const bookCheckedOutResponseJson = await bookCheckedOut.json();
+                setIsCheckedOut(bookCheckedOutResponseJson);
+            }
+            setIsLoadingBookCheckedOut(false);
+        }
+        fetchUserCheckedOutBook().catch((error: any) => {
+            setIsLoadingBookCheckedOut(false);
+            setHttpError(error.message)
+        })
+    }, [authState]);
+
+    if (isLoading || isLoadingReview || isLoadingCurrentLoansCount || isLoadingBookCheckedOut) {
         return (
             <SpinnerLoading />
         )
@@ -187,7 +219,7 @@ export const BookCheckoutPage = () => {
                         <StarsReview rating={totalStars} size={32} />
                     </div>
                 </div>
-                <CheckoutAndReviewBox book={book} mobile={true} currentLoansCount={currentLoansCount}/>
+                <CheckoutAndReviewBox book={book} mobile={true} currentLoansCount={currentLoansCount} />
                 <hr />
                 <LatestReviews reviews={reviews} bookId={book?.id} mobile={true} />
             </div>
