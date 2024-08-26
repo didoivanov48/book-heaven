@@ -230,8 +230,7 @@ export const BookCheckoutPage = () => {
         }
 
         const reviewRequestModel = new ReviewRequestModel(starInput, bookId, reviewDescription);
-        const url = `http://localhost:8080/api/reviews`;
-        // const url = `http://localhost:8080/api/reviews/secure`;
+        const url = `http://localhost:8080/api/reviews/secure`
         const requestOptions = {
             method: "POST",
             headers: {
